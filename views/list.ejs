@@ -7,9 +7,27 @@
 </head>
 <body>
     <h1>Đây là trang LIST</h1>
-    <% array.map((item) => { %>
-        <p>Tên: <%=item.name%></p>
-        <p>Email: <%=item.email%></p>
-    <% }) %>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Pice</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.map((p) => { %>
+                <tr>
+                    <td><%= p.id %></td>
+                    <td><%= p.name %></td>
+                    <td><%= p.image %></td>
+                    <td><%= p.price %></td>
+                    <td><%= p.description %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
 </body>
 </html>
