@@ -15,6 +15,7 @@
                 <th>Image</th>
                 <th>Pice</th>
                 <th>Description</th>
+                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +23,19 @@
                 <tr>
                     <td><%= p.id %></td>
                     <td><%= p.name %></td>
-                    <td><%= p.image %></td>
+                    <td><img src="<%= p.image %>" alt=""></td>
                     <td><%= p.price %></td>
                     <td><%= p.description %></td>
+                    <td>
+                        <a href="/detail/<%= p.id %>">Detail</a>
+                        <a href="">Edit</a>
+                        <a 
+                            onclick="return confirm('Are you sure?')"
+                            href="/delete/<%= p.id %>"
+                        >
+                            Delete
+                        </a>
+                    </td>
                 </tr>
             <% }); %>
         </tbody>

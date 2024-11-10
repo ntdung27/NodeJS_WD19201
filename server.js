@@ -50,6 +50,12 @@ mongoose.connect('mongodb://localhost:27017/wd19201') //đường dẫn:  connec
     .then(result => { //kết nối vs mongoDb thành công
         //khai bảo router: app.method('/url', tenController.tenFunction)
         app.get('/list', proController.getList);
+        app.get('/detail/:product', proController.getDetail);
+        app.get('/delete/:product', proController.delete);
+
+        //thêm mới
+        app.get('/create', proController.create); //trả về form nhập dữ liệu
+        app.post('/store', proController.store); //lưu dữ liệu và db
 
         app.listen(port, () => {
             console.log(`Server đang chạy ở port ${port}`);
