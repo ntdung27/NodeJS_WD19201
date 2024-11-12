@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Trang chỉnh sửa</h1>
+    <form action="/update/<%= product.id %>" method="POST">
+        <div>
+            <label for="">Name</label>
+            <input type="text" name="name" value="<%= product.name %>">
+        </div>
+        <div>
+            <label for="">Price</label>
+            <input type="number" name="price" value="<%= product.price %>">
+        </div>
+        <div>
+            <label for="">Description</label>
+            <input type="text" name="description" value="<%= product.description %>">
+        </div>
+        <div>
+            <label for="">Image</label>
+            <input type="text" name="image" value="<%= product.image %>">
+            <img src="<%= product.image %>" alt="">
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

@@ -44,6 +44,31 @@ class ProductController {
 
         res.redirect('/list');
     }
+
+    async edit(req,res) {
+        //B1: lấy id của bản ghi cần sửa
+        const id = req.params.product;
+        //B2: truy vấn dữ liệu 
+        const product = await Product.findById(id);
+        //B3: đổ dữ liệu ra giao diện
+        res.render('edit.ejs', {product});
+    }
+
+    async update(req,res) {
+        //B1: lấy ng dùng nhập vào form
+        const data = {
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description,
+            image: req.body.image,
+        }
+        //B2: lấy id bản ghi cần chỉnh sửa
+        const id = req.params.product;
+        //B3: gửi dữ liệu lên để update
+        await Product.findByIdAndUpdate(id,data);
+        //B4: đưa ng dùng về trang danh sách
+        res.redirect('/list');
+    }
 }
 
 export default ProductController
