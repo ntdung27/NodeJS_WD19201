@@ -1,11 +1,10 @@
 import express from "express"; //express dùng để khởi tạo node server
 import ejs from "ejs"; //hỗ trợ xây dựng giao diện
 import mongoose from "mongoose"; //kết nối vs mongoDb
-import ProductController from "./controllers/ProductController.js";
+import router from "./routers/index.js";
 
 const app = new express; //khởi tạo express
 const port = 3000; //khai báo cổng sẽ chạy node server
-const proController = new ProductController(); //tạo object từ class Controller
 
 //cấu hình ejs
 app.set('engine', 'ejs'); //khai báo template engine
@@ -48,17 +47,7 @@ app.use(
 
 mongoose.connect('mongodb://localhost:27017/wd19201') //đường dẫn:  connection/tenDb
     .then(result => { //kết nối vs mongoDb thành công
-        //khai bảo router: app.method('/url', tenController.tenFunction)
-        app.get('/list', proController.getList);
-        app.get('/detail/:product', proController.getDetail);
-        app.get('/delete/:product', proController.delete);
-        //thêm mới
-        app.get('/create', proController.create); //trả về form nhập dữ liệu
-        app.post('/store', proController.store); //lưu dữ liệu mới vào db
-        //chỉnh sửa
-        app.get('/edit/:product', proController.edit); //trả về form sửa
-        app.post('/update/:product', proController.update); //lưu dữ liệu cập nhật vào DB
-
+        app.use('/', router); //từ server.js sẽ chạy sang file routers/index.js
         app.listen(port, () => {
             console.log(`Server đang chạy ở port ${port}`);
         })
