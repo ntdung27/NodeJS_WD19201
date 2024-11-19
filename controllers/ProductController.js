@@ -69,6 +69,17 @@ class ProductController {
         //B4: đưa ng dùng về trang danh sách
         res.redirect('/list');
     }
+
+    //API controllers
+    async apiList(req,res) {
+        //truy vấn danh sách sản phẩm
+        const products = await Product.find();
+
+        res.status(200).json({ //trả dữ liệu dưới dạng json
+            'message': 'Lấy dữ liệu thành công',
+            'data': products,
+        })
+    }
 }
 
 export default ProductController
