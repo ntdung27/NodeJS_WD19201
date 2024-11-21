@@ -72,13 +72,93 @@ class ProductController {
 
     //API controllers
     async apiList(req,res) {
-        //truy vấn danh sách sản phẩm
-        const products = await Product.find();
+        try {
+            //truy vấn danh sách sản phẩm
+            const products = await Product.find();
 
-        res.status(200).json({ //trả dữ liệu dưới dạng json
-            'message': 'Lấy dữ liệu thành công',
-            'data': products,
-        })
+            res.status(200).json({ //trả dữ liệu dưới dạng json
+                'message': 'Lấy dữ liệu thành công',
+                'data': products,
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Something went wrong'
+            })
+        };
+    }
+
+    async apiDetail(req,res) {
+        try {
+            //B1: lấy id bản ghi cần xem chi tiết
+            const id = req.params.id;
+            //B2: truyền id lên truy vấn trong mongo
+            const product = await Product.findById(id);
+            //B3: trả dữ liệu
+            res.status(200).json({
+                'message': 'Thành công',
+                'data': product
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Something went wrong'
+            })
+        }
+    }
+
+    async apiDelete(req,res) {
+        try {
+            //B1: lấy id bản ghi cần xóa
+            const id = req.params.id;
+            //B2: gửi id lên để truy vấn
+            const deletedPro = await Product.findByIdAndDelete(id);
+            //B3: trả dữ liệu về
+            res.status(200).json({
+                'message': 'Xóa thành công',
+                'data': deletedPro
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Something went wrong'
+            })
+        }
+    }
+
+    async apiCreate(req,res) {
+        try {
+            //B1: lấy dữ liệu người dùng gửi lên
+            const data = req.body;
+            //B2: đẩy dữ liệu lên, lưu vào DB
+            const newProduct = await Product.create(data);
+            //B3: trả dữ liệu về
+            res.status(200).json({
+                'message': 'Thêm mới thành công',
+                'data': newProduct
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Something went wrong'
+            })
+        }
+    }
+
+    async apiUpdate(req,res) {
+        try {
+            //B1: lấy id bản ghi cần sửa
+            const id = req.params.id;
+            //B2: lấy dữ liệu mới
+            const data = req.body;
+            //B3: đẩy dữ liệu lưu vào DB
+            const product = await Product.findByIdAndUpdate(id,data);
+            //B4: trả về dữ liệu
+            res.status(200).json({
+                'message': 'Chỉnh sửa thành công',
+                'data': product
+            })
+        } catch (error) {
+            res.status(400).json({
+                'message': 'Something went wrong'
+            })
+        }
     }
 }
 
